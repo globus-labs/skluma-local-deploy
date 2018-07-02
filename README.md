@@ -19,7 +19,8 @@ There are only three dependencies to run skluma-local-deploy:
 Before running, you will first need to create a configuration file in the following JSON format
 (let's name the file skluma-config.json): 
 
-```{ 
+```
+{ 
     "username" : "<email-address>", 
     "add-container" : "None",
     "intercept-types" : "None", 
@@ -29,7 +30,8 @@ Before running, you will first need to create a configuration file in the follow
 ```
 
 Once skluma-local-deploy is cloned to your local system, you may run it via the following: 
-```cd skluma-local-deploy
+```
+cd skluma-local-deploy
 pip3 install requirements
 python3 skluma.py <absolute path to skluma-config.json>
 ```
