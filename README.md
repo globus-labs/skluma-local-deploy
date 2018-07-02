@@ -2,12 +2,10 @@
 A file-level metadata extraction service that interfaces with zero cloud service. Skluma processes a number
 of well-defined file types such as the following: 
 
-* Tabular: classic row-column files organized with a consistent delimiter (e.g., CSV, TSV)
-* Structured: common file formats not necessarily in a tabular format (e.g., JSON, XML)
-* Unstructured: free text documents that do not adhere to a schema (e.g., TXT, PDF) 
-* Images: any image represented by the common formats (e.g., TIF, PNG, JPG, BMP, etc.) 
-
-
+* __Tabular__: classic row-column files organized with a consistent delimiter (e.g., CSV, TSV)
+* __Structured__: common file formats not necessarily in a tabular format (e.g., JSON, XML)
+* __Unstructured__: free text documents that do not adhere to a schema (e.g., TXT, PDF) 
+* __Images__: any image represented by the common formats (e.g., TIF, PNG, JPG, BMP, etc.) 
 
 ## Get Started
 
@@ -36,3 +34,6 @@ pip3 install requirements
 python3 skluma.py <absolute path to skluma-config.json>
 ```
 
+## Feedback
+We welcome any thoughts or feature-adds you would like to see with skluma-local-deploy. Please use this 
+repository's issue tracker (https://github.com/globus-labs/skluma-local-deploy/issues) and we will respond promptly. 
