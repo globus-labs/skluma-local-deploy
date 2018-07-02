@@ -7,6 +7,23 @@ of well-defined file types such as the following:
 * __Unstructured__: free text documents that do not adhere to a schema (e.g., TXT, PDF) 
 * __Images__: any image represented by the common formats (e.g., TIF, PNG, JPG, BMP, etc.) 
 
+## Features
+Please be patient with us as we migrate many of our cloud services to a local-only deployment. The following 
+extractors are currently available:
+* Local crawler
+* File sampler 
+* Tabular extractor
+
+The following will be added, in descending order (list will be updated accordingly): 
+* Structured
+* Unstructured (free text) 
+* Images (regular) 
+* Images (maps) 
+* Decompression
+* VCF/DICOM (genetics datasets)
+* Globus Search 
+
+
 ## Get Started
 
 There are only three dependencies to run skluma-local-deploy: 
