@@ -25,10 +25,12 @@ Before running, you will first need to create a configuration file in the follow
     "intercept-types" : "None", 
     "add-db" : "None", 
     "extraction-path" : "<absolute-path-to-file>"
-}```
+}
+```
 
 Once skluma-local-deploy is cloned to your local system, you may run it via the following: 
 ```cd skluma-local-deploy
 pip3 install requirements
-python3 skluma.py <absolute path to skluma-config.json>```
+python3 skluma.py <absolute path to skluma-config.json>
+```
 
