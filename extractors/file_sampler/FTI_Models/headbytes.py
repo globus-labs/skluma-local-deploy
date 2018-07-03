@@ -1,3 +1,5 @@
+
+import json
 import os
 import subprocess
 
@@ -37,14 +39,19 @@ class HeadBytes(FeatureMaker):
         x = [int.from_bytes(c, byteorder="big") for c in entry[2]]
         try:
             y = self.class_table[entry[-1]]
-            #print(y)
         except KeyError:
             self.class_table[entry[-1]] = len(self.class_table)+1
             y = self.class_table[entry[-1]]
-        os.environ["CLASS_TABLE"] = str(self.class_table) # TODO: Why won't environ vars work?
-        # class_table = """export CLASS_TABLE={0}""".format(str(self.class_table))
 
-        # processes = [subprocess.Popen(class_table, shell=True)]
-        # for p in processes: p.wait()
+        # This file just rewrites over itself as its updated.
+        # Not too computationally expensive since we never get more
+        # than a few hundred file types.
+
+        # I think the maximum possible is 969.
+        with open('CLASS_TABLE.json', 'w') as f:
+            json.dump(self.class_table, f)
+
+
+        os.environ["CLASS_TABLE"] = str(self.class_table)  # TODO: Why won't environ vars work?
 
         return np.array(x),y

@@ -40,7 +40,6 @@ class ClassifierBuilder(object):
         # so we don't need to translate multiple times after this.
 
         data = [line for line in reader.data]
-        #print(data)
         shuffle(data)
 
         split_index = int(split*len(data))
@@ -87,9 +86,7 @@ class ClassifierBuilder(object):
 
         self.model.fit(self.X_train, self.Y_train)
 
-        train_and_save(self.model, self.X_train, self.Y_train, "training_test.pkl")
-        import pickle
-        #pickle.dump(self.model, open("trained_rf_classifier.p", "wb"))
+        train_and_save(self.model, self.X_train, self.Y_train, "training_test2.pkl")
 
     def test(self):
        
@@ -132,18 +129,3 @@ def train_and_save(model, X, y, file_name):
     model.fit(X, y)
     with open(file_name, "wb") as f:
         pkl.dump(model, f)
-
-        # TODO: Removed AWS Creds
-        # bucket = conn.get_bucket('sklumabucket091817')
-
-
-        # Uncomment to save model to S3 bucket.
-        # k = Key(bucket)
-        # k.key = 'training_test.pkl'
-        # k.set_contents_from_filename('training_test.pkl')
-
-
-
-
-
-

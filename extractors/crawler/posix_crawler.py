@@ -27,6 +27,7 @@ def increment():
     '''Increments the global COUNT variable. Used for debugging. '''
     global COUNT
     COUNT = COUNT + 1
+    return COUNT
 
 
 class PostgresConnectException(Exception):
@@ -110,25 +111,25 @@ def is_compressed(filename):
     return(filename, zips)
 
 
-def  writer(filepath_size_array):
-    outputfile = "/home/skluzacek/Downloads/skluma_queue.csv"
-
-    with open(outputfile, 'a') as summary:
-        csvwriter = csv.writer(summary)
-        csvwriter.writerow([str("File Path"),str("FileSize")])
-
-        for item in filepath_size_array:
-            filename = item[0]
-            filesize = item[1]
-
-            # if (".zip" in filename) or (".tar" in filename) or (".Z" in filename):
-            with open(outputfile, 'a') as summary:
-                csvwriter.writerow([str(filename),str(filesize)])
-    summary.close()
-
-    print("CSV " + outputfile + " Finished.")
-
-    os.environ['FULLFILELIST'] = outputfile
+# def writer(filepath_size_array):
+#     outputfile = "/home/skluzacek/Downloads/skluma_queue.csv"
+#
+#     with open(outputfile, 'a') as summary:
+#         csvwriter = csv.writer(summary)
+#         csvwriter.writerow([str("File Path"),str("FileSize")])
+#
+#         for item in filepath_size_array:
+#             filename = item[0]
+#             filesize = item[1]
+#
+#             # if (".zip" in filename) or (".tar" in filename) or (".Z" in filename):
+#             with open(outputfile, 'a') as summary:
+#                 csvwriter.writerow([str(filename),str(filesize)])
+#     summary.close()
+#
+#     print("CSV " + outputfile + " Finished.")
+#
+#     os.environ['FULLFILELIST'] = outputfile
 
 
 # TODO: [TYLER] Local deployment complicates this. Will return to this.
@@ -140,6 +141,11 @@ def write_to_postgres(info_tuple):
     """ Take a tuple containing path and file-size, and update the table with this information.  This should also
         inform the user that they. """
 
+    count = increment()
+
+    if count % 1000 == 0:
+        print("Files processed thus far: " + str(count))
+
     # Postgres annoyingly needs single-quotes on everything
     path = '\'' + info_tuple[0] + '\''
     size = info_tuple[1]
@@ -150,9 +156,10 @@ def write_to_postgres(info_tuple):
     # TODO: Generalize into config.
     file_id = '\'' + rename_file("skluzacek@uchicago.edu", info_tuple[0]) + '\''
 
-    # try:
-    conn = sqlite3.connect(DB_PATH)
-    print("Successfully connected to SQLite!")
+    try:
+        conn = sqlite3.connect(DB_PATH)
+    except:
+        print("Unable to connect to SQLite...")
 
     query = """INSERT INTO files (path, user_id, metadata, last_extractor, done, file_size, file_id, ex_ls) VALUES ({0}, 123456, {1}, {2}, {3}, {4}, {5}, {6});"""
     query = query.format(str(path), str(meta_empty), str(cont1), str(done), int(size), str(file_id), get_postgres_str([]))  # TODO: Relax 123456 to fit any user.
@@ -161,7 +168,7 @@ def write_to_postgres(info_tuple):
     cur.execute(query)
     conn.commit()
     conn.close()
-    print("Successfully wrote file with path " + path + " to DB. ")
+    # print("Successfully wrote file with path " + path + " to DB. ")
     return True
 
 
@@ -199,8 +206,10 @@ def get_metadata(directory):
             for item in files:
                 file_path = subdir + "/" + item
                 size = os.stat(file_path).st_size
-
-                write_to_postgres((file_path, size))
+                try:
+                    write_to_postgres((file_path, size))
+                except sqlite3.OperationalError as e:
+                    print("Bad file format... Passing: " + str(e))
     return r
 
 

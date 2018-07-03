@@ -6,10 +6,10 @@ RUN apt-get update && \
 
 # Install app dependencies
 RUN pip install --upgrade pip \
-    && pip3 install scipy
-    && pip3 install sklearn
-    && pip3 install matplotlib
-    && pip3 install gensim
+    && pip3 install scipy \
+    && pip3 install sklearn \
+    && pip3 install matplotlib \
+    && pip3 install gensim \
     && pip3 install numpy
 
 # Add emergency Docker-volume.
@@ -30,6 +30,9 @@ COPY /FTI_Models/randbytes.py /src/FTI_Models/randbytes.py
 COPY /FTI_Models/randhead.py /src/FTI_Models/randhead.py
 COPY /FTI_Models/randngram.py /src/FTI_Models/randngram.py
 COPY /FTI_Models/training_test.pkl /src/FTI_Models/training_test.pkl
+COPY /FTI_Models/naive_truth.csv /src/FTI_Models/naive_truth.csv
+
+
 
 # Run the following command
 CMD ["python", "/src/run.py"]
