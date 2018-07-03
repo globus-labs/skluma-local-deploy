@@ -12,11 +12,9 @@ import sqlite3
 
 from subprocess import call, Popen
 
-
 # Step 1. Check to see if temp folder and SQLite database exists.
 db_path = "tmp/skluma-db3.db"
 tmp_path = os.getcwd() + "/tmp/"
-
 
 parser = argparse.ArgumentParser()
 parser.add_argument("config_path", help = "Path to Skluma configuration JSON. ")
