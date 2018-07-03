@@ -23,7 +23,7 @@ sys.path.insert(0,'columns')
 
 from topic_main import extract_topic
 from ex_columns import extract_columnar_metadata  # Ignore pycharm red squiggle.
-import postgres_helper
+import sqlite_helper  # TODO: Add this.
 
 
 class RedundantMetadata(Exception):
@@ -41,7 +41,7 @@ def main(debug = False, debug_file = None):
         # Step 1. Pick a new file from the DB.
         while True:
             try:
-                file_info = postgres_helper.get_next_file()  # Insert matplotlib that queries database.
+                file_info = sqlite_helper.get_next_file()  # Insert matplotlib that queries database.
                 break
 
             except:
@@ -98,7 +98,7 @@ def main(debug = False, debug_file = None):
         metadata2 = str(metadata).replace('\'','')
 
         #print(metadata)
-        postgres_helper.update_db(real_path, json.dumps(metadata2), 'done', ex_ls, total_time)
+        sqlite_helper.update_db(real_path, json.dumps(metadata2), 'done', ex_ls, total_time)
         print("Database updated. ")
 
         metadata = json.dumps(metadata)
