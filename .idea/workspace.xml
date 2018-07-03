@@ -1,77 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ad63416e-8cc9-4686-a8f4-fbc584bcd9e4" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/README.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/_DS_Store" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/clf_model.sav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/file_list.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/get_file_list.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/label_no_wrong_file.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/model/clf_model.sav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/model/pca_model.sav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/pca_model.sav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/prediction.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/prediction/prediction.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extractors/main_extractor/image/tylerpredict.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/skluma-local-deploy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/skluma-local-deploy.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/crawler/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/crawler/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/crawler/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/crawler/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/crawler/posix_crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/crawler/posix_crawler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/crawler/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/crawler/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/file_sampler/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/file_sampler/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/CLASS_TABLE.json" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/CLASS_TABLE.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/classify.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/classify.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/extpredict.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/extpredict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/feature.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/feature.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/headbytes.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/headbytes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/naivetruth.csv" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/naivetruth.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/ngram.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/ngram.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/outbak.csv" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/outbak.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/randbytes.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/randbytes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/randhead.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/randhead.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/randngram.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/randngram.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/training_test.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/file_sampler/FTI_Models/training_test.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/file_sampler/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/file_sampler/run.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/columns/ML_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/columns/ML_util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/columns/checker.txt" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/columns/checker.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/columns/dockermocker.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/columns/dockermocker.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/columns/ex_columns.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/columns/ex_columns.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/columns/ex_columns2.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/columns/ex_columns2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/columns/ni_model.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/columns/ni_model.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/columns/null_inference.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/columns/null_inference.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/columns/null_training_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/columns/null_training_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/columns/skluma_file_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/columns/skluma_file_editor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/netcdf/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/netcdf/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/netcdf/ex_nc.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/netcdf/ex_nc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/topic/corpus.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/topic/corpus.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/topic/doc_vectors.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/topic/doc_vectors.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/topic/preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/topic/preprocessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/topic/stop-words-en.txt" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/topic/stop-words-en.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/topic/topic_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/topic/topic_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/topic/vectorizers.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/topic/vectorizers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractors/main_extractor/topic/word_vectors.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractors/main_extractor/topic/word_vectors.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/skluma.py" beforeDir="false" afterPath="$PROJECT_DIR$/skluma.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/skluma-db3.db" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/skluma-db3.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
-    </list>
+    <list default="true" id="ad63416e-8cc9-4686-a8f4-fbc584bcd9e4" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -122,7 +52,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/extractors/crawler/main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="324">
@@ -149,7 +79,7 @@
       <file leaf-file-name="skluma.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/skluma.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-530">
+            <state relative-caret-position="-516">
               <caret line="13" selection-start-line="13" selection-end-line="13" />
               <folding>
                 <element signature="e#153#168#0" expanded="true" />
@@ -158,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="corpus.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="corpus.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/extractors/main_extractor/topic/corpus.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="342">
+              <caret line="19" column="76" lean-forward="true" selection-start-line="19" selection-start-column="76" selection-end-line="19" selection-end-column="76" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -223,6 +153,7 @@
         <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/extractors/crawler/posix_crawler.py" />
         <option value="$PROJECT_DIR$/skluma.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -420,11 +351,19 @@
       <option name="project" value="LOCAL" />
       <updated>1530651975188</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Folding image extractor into main_extractor">
+      <created>1530652962272</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1530652962272</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="927" height="1055" extended-state="4" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -463,7 +402,8 @@
     <MESSAGE value="[Crawler] added try/except. &#10;[Sampler] added CLASS_TABLE as inter-container state (no longer in S3)." />
     <MESSAGE value="[ALL] Removed hard-codings and simplifed configuration setup." />
     <MESSAGE value="Initial commit of main_extractor." />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit of main_extractor." />
+    <MESSAGE value="Folding image extractor into main_extractor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Folding image extractor into main_extractor" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -572,6 +512,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="287">
           <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -579,6 +522,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -674,16 +620,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/extractors/crawler/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="33" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
-          <folding>
-            <element signature="e#430#439#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/extractors/crawler/posix_crawler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
@@ -694,9 +630,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extractors/main_extractor/topic/corpus.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" column="76" lean-forward="true" selection-start-line="19" selection-start-column="76" selection-end-line="19" selection-end-column="76" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/skluma.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-530">
+        <state relative-caret-position="-516">
           <caret line="13" selection-start-line="13" selection-end-line="13" />
           <folding>
             <element signature="e#153#168#0" expanded="true" />
@@ -704,12 +657,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/extractors/main_extractor/topic/corpus.py">
+    <entry file="file://$PROJECT_DIR$/extractors/crawler/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        <state relative-caret-position="324">
+          <caret line="18" column="33" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#430#439#0" expanded="true" />
           </folding>
         </state>
       </provider>
