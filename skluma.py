@@ -4,19 +4,30 @@
     As of right now, this local version does NOT support file update daemon.
 """
 
+import argparse
+import json
 import os
 import multiprocessing
 import sqlite3
 
 from subprocess import call, Popen
-from uuid import uuid4
 
 
 # Step 1. Check to see if temp folder and SQLite database exists.
-# TODO: Pick this up as JSON config. Easier for debugging this way.
 db_path = "tmp/skluma-db3.db"
-crawlable_path = "/home/skluzacek/Downloads"
 tmp_path = os.getcwd() + "/tmp/"
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("config_path", help = "Path to Skluma configuration JSON. ")
+
+args = parser.parse_args()
+
+with open(args.config_path, 'r') as f:
+    config_dict = json.load(f)
+
+username = config_dict["username"]
+crawlable_path = config_dict["extraction-path"]
 
 if not os.path.isdir('tmp'):
     os.mkdir('tmp')
@@ -46,15 +57,14 @@ print(docker_crawl_path)
 call(["sudo", "docker", "run", "--rm","-e", docker_crawl_path ,  "-e", "DB_PATH=" + tmp_path + "skluma-db3.db", "-P", "-t", "-v", crawlable_path + "/:" + crawlable_path, "-v", tmp_path + ":" + tmp_path, "posix_crawler"])
 
 # Step 4. Spin up and launch file sampler.
-# print("Launching file system crawler at path " + crawlable_path + ".")
-# call(["sudo", "docker", "build", "-t" , "file_sampler", "extractors/file_sampler"])
-# call(["sudo", "docker", "run", "--rm", "-e", "DB_PATH=" + tmp_path + "skluma-db3.db", "-P", "-t", "-v", crawlable_path + "/:" + crawlable_path, "-v", tmp_path + ":" + tmp_path, "file_sampler"])
+print("Background launching file system crawler at path " + crawlable_path + ".")
+call(["sudo", "docker", "build", "-t" , "file_sampler", "extractors/file_sampler"])
+Popen(["sudo", "docker", "run", "--rm", "-e", "DB_PATH=" + tmp_path + "skluma-db3.db", "-P", "-t", "-v", crawlable_path + "/:" + crawlable_path, "-v", tmp_path + ":" + tmp_path, "file_sampler"])
 
 # Step 5. Launch #-cores-1 universal samplers.
 total_cores = multiprocessing.cpu_count()
 print(total_cores)
 
 # TODO: Move compressed files to /tmp, decompress them, process, then delete.
-
 # Step 5a. When crawler spins down, launch another main.
 # Step 5b. When sampler spins down, launch another main.

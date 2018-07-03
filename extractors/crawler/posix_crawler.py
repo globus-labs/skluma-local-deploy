@@ -8,10 +8,9 @@
         @Author: Tyler J. Skluzacek, University of Chicago
         @Email: skluzacek@uchicago.edu
         @Github: tskluzac
-        @LastEdited: 07/02/2018
+        @LastEdited: 07/03/2018
 """
 
-import csv
 import json
 import os
 import sqlite3
@@ -108,28 +107,7 @@ def download_ftp_tree(ftp_handle, path, overwrite=False, guess_by_extension=True
 def is_compressed(filename):
     filename = filename.lower()
     zips = ["zip", "tar", "z", "gz"]
-    return(filename, zips)
-
-
-# def writer(filepath_size_array):
-#     outputfile = "/home/skluzacek/Downloads/skluma_queue.csv"
-#
-#     with open(outputfile, 'a') as summary:
-#         csvwriter = csv.writer(summary)
-#         csvwriter.writerow([str("File Path"),str("FileSize")])
-#
-#         for item in filepath_size_array:
-#             filename = item[0]
-#             filesize = item[1]
-#
-#             # if (".zip" in filename) or (".tar" in filename) or (".Z" in filename):
-#             with open(outputfile, 'a') as summary:
-#                 csvwriter.writerow([str(filename),str(filesize)])
-#     summary.close()
-#
-#     print("CSV " + outputfile + " Finished.")
-#
-#     os.environ['FULLFILELIST'] = outputfile
+    return filename, zips
 
 
 # TODO: [TYLER] Local deployment complicates this. Will return to this.
@@ -232,4 +210,5 @@ def launch_crawler(repo_path):
 
     exit()
 
-launch_crawler('/home/skluzacek/Downloads')
+
+launch_crawler(os.environ["CRAWL_PATH"])

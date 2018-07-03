@@ -19,19 +19,9 @@ VOLUME ["/DataVolume1"]
 # Bundle app source
 COPY /run.py /src/run.py
 
-# TODO: Switch to a single directory-ADD.
-COPY /FTI_Models/classify.py /src/FTI_Models/classify.py
-COPY /FTI_Models/extpredict.py /src/FTI_Models/extpredict.py
-COPY /FTI_Models/feature.py /src/FTI_Models/feature.py
-COPY /FTI_Models/headbytes.py /src/FTI_Models/headbytes.py
-COPY /FTI_Models/main.py /src/FTI_Models/main.py
-COPY /FTI_Models/ngram.py /src/FTI_Models/ngram.py
-COPY /FTI_Models/randbytes.py /src/FTI_Models/randbytes.py
-COPY /FTI_Models/randhead.py /src/FTI_Models/randhead.py
-COPY /FTI_Models/randngram.py /src/FTI_Models/randngram.py
-COPY /FTI_Models/training_test.pkl /src/FTI_Models/training_test.pkl
-COPY /FTI_Models/naive_truth.csv /src/FTI_Models/naive_truth.csv
 
+ADD /FTI_Models /src/FTI_Models
+COPY /FTI_Models/CLASS_TABLE.json /src/CLASS_TABLE.json
 
 
 # Run the following command
