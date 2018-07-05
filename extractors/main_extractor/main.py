@@ -9,19 +9,16 @@
 import decimal
 import json
 import nltk
-import requests
 import sys
 import time
 import urllib
 
 nltk.download("punkt")
 
-# sys.path.insert(0, 'src/columns')
-# sys.path.insert(0, 'src/topic')
-sys.path.insert(0,'topic')
-sys.path.insert(0,'columns')
+sys.path.insert(0,'/src/topic')
+sys.path.insert(0,'/src/columns')
 
-from topic_main import extract_topic
+# from topic_main import extract_topic
 from ex_columns import extract_columnar_metadata  # Ignore pycharm red squiggle.
 import sqlite_helper  # TODO: Add this.
 
@@ -147,6 +144,15 @@ def post_to_API(metadatablob):
 
     # TODO: Instead of posting to Suhail's API, just write back to the database.
     #post_req = requests.post('http://always.cs.uchicago.edu:8000/api/skluma/', json=metadatablob)
+    print("Bananas")
 
 
-main(debug=True)
+def test_one_file():
+
+    with open('/home/skluzacek/pub8/examples/58GS20090528.exc.csv') as filehandle:
+
+        md = extract_columnar_metadata(filehandle)
+
+    print(md)
+
+test_one_file()

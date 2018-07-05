@@ -10,7 +10,7 @@ import sys
 
 import os
 import re
-import StringIO #TODO: Make work in Python3.
+from StringIO import StringIO #TODO: Make work in Python3.
 
 from decimal import Decimal
 from heapq import nsmallest, nlargest
@@ -35,8 +35,9 @@ pkl_path = "/src/columns/ni_model.pkl"
 single_val = True
 
 # load null inference model  # TODO: un-hardcode.
-with open(local_run) as model_file:  # Local version
-    # with open(os.path.abspath(local_run)) as model_file:  # Docker version.
+
+
+with open(container_run) as model_file:  # Local version
     ni_model = pkl.load(model_file)
 
 
@@ -431,5 +432,5 @@ def process_structured_file(full_file_path):
 
     return (metadata, sub_extr_data, sub_extr)
 
-#process_structured_file('/home/skluzacek/Downloads/file%3A%2Fhome%2Fsuhail%2Fdataset%2F09FS20091009.csv')
 
+# process_structured_file('/home/skluzacek/pub8/examples/58GS20090528.exc.csv')

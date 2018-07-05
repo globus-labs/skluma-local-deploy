@@ -7,3 +7,4 @@ def get_next_file():
 
 
 def update_db():
+    print("Yo")
