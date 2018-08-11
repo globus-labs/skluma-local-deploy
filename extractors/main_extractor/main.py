@@ -3,7 +3,7 @@
     and continuously puts the file through relevant extractors. Updates in RDS db as it goes.
 
     Author: Tyler J. Skluzacek
-    Last Edited: 01/31/2018
+    Last Edited: 07/05/2018
 """
 
 import decimal
@@ -18,7 +18,7 @@ nltk.download("punkt")
 sys.path.insert(0,'/src/topic')
 sys.path.insert(0,'/src/columns')
 
-# from topic_main import extract_topic
+from topic_main import extract_topic
 from ex_columns import extract_columnar_metadata  # Ignore pycharm red squiggle.
 import sqlite_helper  # TODO: Add this.
 
@@ -58,7 +58,6 @@ def main(debug = False, debug_file = None):
             ex_structured = get_structured_metadata(filename, metadata)
         except:
             ex_structured = None
-        # if ex_structured == None or ex_structured == "None":
 
         try:
             ex_freetext = get_freetext_metadata(filename, metadata)
@@ -82,7 +81,7 @@ def main(debug = False, debug_file = None):
             total_time += decimal.Decimal(str(added_time))  # Total time spent extracting this file.
             metadata["extractors"]["ex_structured"] = new_metadata
 
-        # Now update metadata in RDS.
+        # Now update metadata in SQLite.
         print("Decoding URL now...")
         new_url = metadata["metadata"]["file"]["path"].replace('/home/skluzacek/Downloads/', '')
         print(new_url)
