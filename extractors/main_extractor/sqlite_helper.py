@@ -1,7 +1,4 @@
 
-
-# TODO by end of day -- repeat this process for SQLite as we did for Postgres.
-
 import json
 import os
 import sqlite3
@@ -11,8 +8,6 @@ DB_PATH = '/home/skluzacek/skluma-local-deploy/tmp/skluma-db3.db'
 
 
 def get_next_file():
-
-    #TODO: Make this get next file.
 
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
@@ -25,7 +20,7 @@ def get_next_file():
     results = cur.fetchall()
 
     unsampled_files = []
-    for hit in results: 
+    for hit in results:
         print(hit)
 
     return unsampled_files
@@ -41,14 +36,13 @@ def update_db(file_id, new_meta, next_extractor, ext_list, time_taken):
 
     new_meta = json.dumps(new_meta)
 
-    conn3 = "hi"  # TODO DB Connection.
-
+    conn3 = sqlite3.connect(DB_PATH)
     cur3 = conn3.cursor()
 
     #TODO: Done = 'T' is VERY important and should be used to avoid pulling the top file 1000 times.
     #TODO: TYLER -- start by getting this query to work. :) 3:16pm.
 
-    data_query = """UPDATE files2 SET last_extractor = {0}, metadata = {1}, done = 't', ex_ls={2}, totaltime={4} WHERE path = {3};"""
+    data_query = """UPDATE files SET last_extractor = {0}, metadata = {1}, done = 't', ex_ls={2}, totaltime={4} WHERE path = {3};"""
     data_query = data_query.format(get_postgres_str(next_extractor), get_postgres_str(new_meta),
                                    get_postgres_str(str(ext_list).replace('\'', '"')), get_postgres_str(file_id),
                                    time_taken)
@@ -57,9 +51,8 @@ def update_db(file_id, new_meta, next_extractor, ext_list, time_taken):
     conn3.commit()
     conn3.close()
 
+
 def get_postgres_str(obj):
     """ Short helper method to add the apostrophes that postgres wants. Also casts to str. """
     string = "'" + str(obj) + "'"
     return string
-
-get_next_file()
