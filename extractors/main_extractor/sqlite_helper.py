@@ -3,8 +3,8 @@ import json
 import os
 import sqlite3
 
-# DB_PATH = os.environ["DB_PATH"]
-DB_PATH = '/home/skluzacek/skluma-local-deploy/tmp/skluma-db3.db'
+DB_PATH = os.environ["DB_PATH"]
+# DB_PATH = '/home/skluzacek/skluma-local-deploy/tmp/skluma-db3.db'
 
 
 def get_next_file():

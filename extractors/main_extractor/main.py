@@ -20,6 +20,7 @@ sys.path.insert(0,'/src/columns')
 
 from topic_main import extract_topic
 from ex_columns import extract_columnar_metadata  # Ignore pycharm red squiggle.
+from file_type_extensions import freetext_type_list, image_type_list, tabular_type_list
 import sqlite_helper  # TODO: Add this.
 
 
@@ -54,26 +55,30 @@ def main(debug = False, debug_file = None):
         last_extractor = file_info[4]
         real_path = file_info[5]
 
+        print(filename, real_path)
+
         try:
             ex_structured = get_structured_metadata(filename, metadata)
         except:
             ex_structured = None
 
-        try:
-            ex_freetext = get_freetext_metadata(filename, metadata)
-        except:
-            ex_freetext = None
+        # try:
+        #     ex_freetext = get_freetext_metadata(filename, metadata)
+        # except:
+        #     ex_freetext = None
+        #
+        # if ex_freetext != None:
+        #     new_metadata = ex_freetext[0]
+        #     added_time = ex_freetext[1]
 
-        if ex_freetext != None:
-            new_metadata = ex_freetext[0]
-            added_time = ex_freetext[1]
+            # total_time += decimal.Decimal(str(added_time))  # Total time spent extracting this file.
+            #
+            # try: #TODO: Is this a bad try/except?
+            #     metadata["extractors"]["ex_freetext"] = new_metadata["ex_freetext"]
+            # except:
+            #     pass
 
-            total_time += decimal.Decimal(str(added_time))  # Total time spent extracting this file.
 
-            try: #TODO: Is this a bad try/except?
-                metadata["extractors"]["ex_freetext"] = new_metadata["ex_freetext"]
-            except:
-                pass
         if ex_structured != None or ex_structured != "None":
             new_metadata = ex_structured[0]
             added_time = ex_structured[1]

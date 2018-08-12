@@ -27,23 +27,29 @@ with open(args.config_path, 'r') as f:
 username = config_dict["username"]
 crawlable_path = config_dict["extraction-path"]
 
-if not os.path.isdir('tmp'):
-    os.mkdir('tmp')
 
-# Step 1a. If SQLite DB does not exist, create one.
-if not os.path.exists(db_path):
-    try:
-        conn = sqlite3.connect(db_path)
-        print("Using SQLite Version: " + str(sqlite3.version))
+def initialize():
 
-        print("Creating tables...")
-        c = conn.cursor()
-        c.execute('''CREATE TABLE files (path text, user_id text, metadata text, last_extractor text, done text, file_size real, file_id text, ex_ls text)''')
-        conn.commit()
-        conn.close()
+    if not os.path.isdir('tmp'):
+        os.mkdir('tmp')
 
-    except sqlite3.Error as e:
-        print(e)
+    # Step 1a. If SQLite DB does not exist, create one.
+    if not os.path.exists(db_path):
+        try:
+            conn = sqlite3.connect(db_path)
+            print("Using SQLite Version: " + str(sqlite3.version))
+
+            print("Creating tables...")
+            c = conn.cursor()
+            c.execute('''CREATE TABLE files (path text, user_id text, metadata text, last_extractor text, done text, file_size real, file_id text, ex_ls text)''')
+            conn.commit()
+            conn.close()
+
+        except sqlite3.Error as e:
+            print(e)
+
+# TODO: Uncomment this for initialization.
+# initialize()
 
 # Step 3. Spin up and launch crawler.
 # TODO: Switch back to pyLogger and not 'print'.
