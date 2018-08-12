@@ -3,10 +3,32 @@
 # TODO by end of day -- repeat this process for SQLite as we did for Postgres.
 
 import json
+import os
 import sqlite3
 
+# DB_PATH = os.environ["DB_PATH"]
+DB_PATH = '/home/skluzacek/skluma-local-deploy/tmp/skluma-db3.db'
+
+
 def get_next_file():
-    print("Bo")
+
+    #TODO: Make this get next file.
+
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+
+    # TODO: <> init; is not good enough...
+    query = """SELECT path, metadata, last_extractor FROM files WHERE last_extractor <> 'init' AND last_extractor <> 'main' LIMIT 1; """
+
+    cur.execute(query)
+    conn.commit()
+    results = cur.fetchall()
+
+    unsampled_files = []
+    for hit in results: 
+        print(hit)
+
+    return unsampled_files
 
 
 def update_db(file_id, new_meta, next_extractor, ext_list, time_taken):
@@ -39,3 +61,5 @@ def get_postgres_str(obj):
     """ Short helper method to add the apostrophes that postgres wants. Also casts to str. """
     string = "'" + str(obj) + "'"
     return string
+
+get_next_file()
