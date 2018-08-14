@@ -31,6 +31,7 @@ ADD topic /src/topic
 # Bundle MAIN source
 COPY /main.py /src/main.py
 COPY /sqlite_helper.py /src/sqlite_helper.py
+COPY /file_type_extensions.py /src/file_type_extensions.py
 
 
 # Run the following command

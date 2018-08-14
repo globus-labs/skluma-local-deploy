@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import nltk
 
 from preprocessing import preprocess
 from word_vectors import load_glove_model
@@ -9,7 +10,6 @@ from vectorizers import ImportanceEmbeddingVectorizer, NTFImportanceEmbeddingVec
 # I need to tidy this up and wrap them into one which avoids repeated work
 
 ### Tyler-note: needs to run nltk.download("punkt") once before running!
-
 
 vectorizers = {
     'ntf-imp': NTFImportanceEmbeddingVectorizer,
@@ -78,9 +78,12 @@ def docs_to_keywords(docs, top_n=10, mode='ntf-imp', scores=True):
         raise ValueError('mode must be one of' + ', '.join(vectorizers.keys()))
         return None
 
+
+    print("MADE IT HERE FRIEND")
     model = vectorizer()    # notice no word vectors passed in
     model = model.fit(docs)
     keywords = model.keywords(docs, top_n=top_n, scores=scores)
+    print("KEYWORDS:" + str(keywords))
     return keywords
 
 
@@ -88,6 +91,8 @@ def files_to_keywords(files, top_n=10, mode='ntf-imp', scores=True):
     '''
     Reads in each file in files and calls docs_to_keywords on this collection
     '''
+
+
     docs = read_files(files)
     return docs_to_keywords(docs, top_n=top_n, mode=mode, scores=scores)
 

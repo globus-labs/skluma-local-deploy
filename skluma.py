@@ -49,7 +49,7 @@ def initialize():
             print(e)
 
 # TODO: Uncomment this for initialization.
-# initialize()
+initialize()
 
 # Step 3. Spin up and launch crawler.
 # TODO: Switch back to pyLogger and not 'print'.
@@ -63,7 +63,11 @@ call(["sudo", "docker", "run", "--rm","-e", docker_crawl_path ,  "-e", "DB_PATH=
 # Step 4. Spin up and launch file sampler.
 print("Background launching file system crawler at path " + crawlable_path + ".")
 call(["sudo", "docker", "build", "-t" , "file_sampler", "extractors/file_sampler"])
-Popen(["sudo", "docker", "run", "--rm", "-e", "DB_PATH=" + tmp_path + "skluma-db3.db", "-P", "-t", "-v", crawlable_path + "/:" + crawlable_path, "-v", tmp_path + ":" + tmp_path, "file_sampler"])
+call(["sudo", "docker", "run", "--rm", "-e", "DB_PATH=" + tmp_path + "skluma-db3.db", "-P", "-t", "-v", crawlable_path + "/:" + crawlable_path, "-v", tmp_path + ":" + tmp_path, "file_sampler"])
+
+call(["sudo", "docker", "build", "-t", "main_extractor", "extractors/main_extractor"])
+call(["sudo", "docker", "run", "--rm", "-e", "DB_PATH=" + tmp_path + "skluma-db3.db", "-P", "-t", "-v", crawlable_path + "/:" + crawlable_path, "-v", tmp_path + ":" + tmp_path, "main_extractor"])
+
 
 # Step 5. Launch #-cores-1 universal samplers.
 total_cores = multiprocessing.cpu_count()

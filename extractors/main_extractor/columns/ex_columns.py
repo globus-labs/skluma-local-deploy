@@ -28,7 +28,7 @@ sys.path.insert(0, 'columns')
 
 NULL_EPSILON = 1
 container_run = '/src/columns/ni_model.pkl'
-local_run = 'columns/ni_model.pkl'
+local_run = 'ni_model.pkl'
 pkl_path = "/src/columns/ni_model.pkl"
 
 # Should if 'min', 'max', 'avg' should just return one value (or list of 3).
@@ -423,14 +423,21 @@ def process_structured_file(full_file_path):
         freetext found in the file.
         :param str full_file_path path to the file on the system to be extracted. '''
 
+    metadata2 = {}
+    if "._" in full_file_path:
+        full_file_path2 = full_file_path.replace('._', '')
+
+        with open(full_file_path2, 'rU') as file_handle:
+            metadata2 = extract_columnar_metadata(file_handle)
+
     with open(full_file_path, 'rU') as file_handle:
-        metadata = extract_columnar_metadata(file_handle)
+        metadata1 = extract_columnar_metadata(file_handle)
+        sub_extr_data, sub_extr = None, None  #TODO: Put back hybrid.
 
-        print(metadata)
-        sub_extr_data, sub_extr = None, None  # Todo: this would be where we notice freetext in the document.
-
+    metadata = max([str(metadata1), str(metadata2)], key=len)
+    print(metadata)
 
     return (metadata, sub_extr_data, sub_extr)
 
 
-# process_structured_file('/home/skluzacek/pub8/examples/58GS20090528.exc.csv')
+# process_structured_file('/home/skluzacek/pub8/oceans/VOS_New_Century_2/2015/PANC20150504.csv')

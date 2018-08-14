@@ -4,8 +4,6 @@ import os
 import sqlite3
 
 DB_PATH = os.environ["DB_PATH"]
-# DB_PATH = '/home/skluzacek/skluma-local-deploy/tmp/skluma-db3.db'
-
 
 def get_next_file():
 
@@ -13,7 +11,7 @@ def get_next_file():
     cur = conn.cursor()
 
     # TODO: <> init; is not good enough...
-    query = """SELECT path, metadata, last_extractor FROM files WHERE last_extractor <> 'init' AND last_extractor <> 'main' LIMIT 1; """
+    query = """SELECT path, metadata, last_extractor FROM files WHERE last_extractor <> 'init' AND last_extractor <> 'main' AND path LIKE '%README%' LIMIT 1; """
 
     cur.execute(query)
     conn.commit()
@@ -21,7 +19,7 @@ def get_next_file():
 
     unsampled_files = []
     for hit in results:
-        print(hit)
+        unsampled_files.append(hit)
 
     return unsampled_files
 
