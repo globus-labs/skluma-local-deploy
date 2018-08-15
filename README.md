@@ -13,10 +13,10 @@ extractors are currently available:
 * Local crawler
 * File sampler 
 * Tabular extractor
+* Unstructured (free text) 
 
 The following will be added, in descending order (list will be updated accordingly): 
 * Structured
-* Unstructured (free text) 
 * Images (regular) 
 * Images (maps) 
 * Decompression
