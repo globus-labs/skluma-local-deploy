@@ -37,113 +37,114 @@ def main(debug = False, debug_file = None):
 
 
     # Just do one file.
-    #while True:
-    #try:
-        # Step 1. Pick a new file from the DB.
-        #while True:
+    while True:
+        #try:
+            # Step 1. Pick a new file from the DB.
+            #while True:
 
-    print("Made it here...")
-    try:
+        #try:
         file_info = sqlite_helper.get_next_file()[0]  # Insert matplotlib that queries database.
         filename = file_info[0]
         metadata = file_info[1]
         last_extractor = file_info[2]
 
-    except Exception as e:
-        print(e)
-        print("Empty queue. Seeking again momentarily")
-        time.sleep(5)  # Take a short, arbitrary nap :)
-        # break # TODO: Add back break so we restart loop from beginning.
+        # except Exception as e:
+        #     print(e)
+        #     print("Empty queue. Seeking again momentarily")
+        #     time.sleep(5)  # Take a short, arbitrary nap :)
+            # break # TODO: Add back break so we restart loop from beginning.
 
-    # Get the extension from the file.
-    if '.' in filename:
-        extension = filename.split('.')[-1]
-    else:
-        extension = None
+        # Get the extension from the file.
+        if '.' in filename:
+            extension = filename.split('.')[-1]
+        else:
+            extension = None
 
-    print("Processing file of extension: " + extension + " " + filename)
+        print("Processing file of extension: " + extension + " " + filename)
 
-    # *** Build extension override *** #
+        # *** Build extension override *** #
 
-    ex_freetext = None
-    ex_structured = None
+        ex_freetext = None
+        ex_structured = None
 
-    if extension.lower() in tabular_type_list:
-        try:
-            ex_structured = get_structured_metadata(filename, metadata)
-        except:
-            ex_structured = None
-
-            try:
-                ex_freetext = get_freetext_metadata(filename, metadata)
-            except:
-                ex_freetext = None
-
-    elif extension.lower() in freetext_type_list:
-        try:
-            ex_freetext = get_freetext_metadata(filename, metadata)
-        except:
-            ex_freetext = None
+        if extension.lower() in tabular_type_list:
             try:
                 ex_structured = get_structured_metadata(filename, metadata)
             except:
                 ex_structured = None
 
-    elif extension.lower() in image_type_list:
-        # TODO: Add back image extractor.
-        print("Image extractor here... ")
+                try:
+                    ex_freetext = get_freetext_metadata(filename, metadata)
+                except:
+                    ex_freetext = None
+
+        elif extension.lower() in freetext_type_list:
+            try:
+                ex_freetext = get_freetext_metadata(filename, metadata)
+            except:
+                ex_freetext = None
+                try:
+                    ex_structured = get_structured_metadata(filename, metadata)
+                except:
+                    ex_structured = None
+
+        elif extension.lower() in image_type_list:
+            # TODO: Add back image extractor.
+            print("Image extractor here... ")
 
 
-    print("Extracted Freetext metadata: " + str(ex_freetext))
+        print("Extracted Freetext metadata: " + str(ex_freetext))
 
-    # try:
-    #     ex_freetext = get_freetext_metadata(filename, metadata)
-    # except:
-    #     ex_freetext = None
-    #
-    # if ex_freetext != None:
-    #     new_metadata = ex_freetext[0]
-    #     added_time = ex_freetext[1]
-
-        # total_time += decimal.Decimal(str(added_time))  # Total time spent extracting this file.
-        #
-        # try: #TODO: Is this a bad try/except?
-        #     metadata["extractors"]["ex_freetext"] = new_metadata["ex_freetext"]
+        # try:
+        #     ex_freetext = get_freetext_metadata(filename, metadata)
         # except:
-        #     pass
+        #     ex_freetext = None
+        #
+        # if ex_freetext != None:
+        #     new_metadata = ex_freetext[0]
+        #     added_time = ex_freetext[1]
 
-    metadata = ast.literal_eval(metadata)
+            # total_time += decimal.Decimal(str(added_time))  # Total time spent extracting this file.
+            #
+            # try: #TODO: Is this a bad try/except?
+            #     metadata["extractors"]["ex_freetext"] = new_metadata["ex_freetext"]
+            # except:
+            #     pass
 
-    metadata["extractors"] = {}
+        metadata = ast.literal_eval(metadata)
 
-    if ex_structured != None and ex_structured != "None":
-        new_metadata = ex_structured[0]
-        # added_time = ex_structured[1]
+        metadata["extractors"] = {}
 
-        # total_time += decimal.Decimal(str(added_time))  # Total time spent extracting this file.
-        metadata["extractors"]["ex_structured"] = new_metadata
+        if ex_structured != None and ex_structured != "None":
+            new_metadata = ex_structured[0]
+            # added_time = ex_structured[1]
 
-    if ex_freetext != None and ex_freetext != "None":
+            # total_time += decimal.Decimal(str(added_time))  # Total time spent extracting this file.
+            metadata["extractors"]["ex_structured"] = new_metadata
+
+        if ex_freetext != None and ex_freetext != "None":
 
 
-        new_metadata = ex_freetext[0]
-        metadata["extractors"]["ex_freetext"] = new_metadata
+            new_metadata = ex_freetext[0]
+            metadata["extractors"]["ex_freetext"] = new_metadata
 
-    print("THE METADATA: " + str(metadata))
+        print("THE METADATA: " + str(metadata))
 
-    # TODO: TYLER STEP 1... METADATA IS WRITING... NOW ADD TO DB.
+        # TODO: TYLER STEP 1... METADATA IS WRITING... NOW ADD TO DB.
 
-    #print(metadata)
-    # sqlite_helper.update_db(real_path, json.dumps(metadata2), 'done', ex_ls, total_time)
-    # print("Database updated. ")
-    #
-    # metadata = json.dumps(metadata)
-    # metadata = json.loads(metadata)
-    #
-    # print(metadata)
-    #
-    # # TODO: Switch to DB update rather than posting to API.
-    # post_to_API(metadata)
+
+
+        #print(metadata)
+        sqlite_helper.update_db(filename, metadata, 'main1')
+        # print("Database updated. ")
+        #
+        # metadata = json.dumps(metadata)
+        # metadata = json.loads(metadata)
+        #
+        # print(metadata)
+        #
+        # # TODO: Switch to DB update rather than posting to API.
+        # post_to_API(metadata)
 
 
 def get_freetext_metadata(filename, old_mdata):

@@ -11,7 +11,7 @@ def get_next_file():
     cur = conn.cursor()
 
     # TODO: <> init; is not good enough...
-    query = """SELECT path, metadata, last_extractor FROM files WHERE last_extractor <> 'init' AND last_extractor <> 'main' AND path LIKE '%README%' LIMIT 1; """
+    query = """SELECT path, metadata, last_extractor FROM files WHERE last_extractor <> 'init' AND last_extractor <> 'main1' LIMIT 1; """
 
     cur.execute(query)
     conn.commit()
@@ -24,26 +24,24 @@ def get_next_file():
     return unsampled_files
 
 
-def update_db(file_id, new_meta, next_extractor, ext_list, time_taken):
-    ''' Function to update the database with the next extractor in the queue.
+def update_db(file_id, new_meta, next_extractor):
+    """
+    Function to update the database with the next extractor in the queue.
         :param str file_id -- id of the file to be updated in db.
         :param json new_meta -- the metadata to add to file's metadata field in db.
         :param str next_extractor -- the next extractor a file needs.
-        :param list ext_list -- all of the extractors that a file has been processed with.
-    '''
+    """
 
-    new_meta = json.dumps(new_meta)
+    new_meta = get_postgres_str(str(new_meta).replace('\'', '\"'))
 
     conn3 = sqlite3.connect(DB_PATH)
     cur3 = conn3.cursor()
 
-    #TODO: Done = 'T' is VERY important and should be used to avoid pulling the top file 1000 times.
-    #TODO: TYLER -- start by getting this query to work. :) 3:16pm.
+    data_query = """UPDATE files SET last_extractor = {}, metadata = {} WHERE path = {};"""
+    data_query = data_query.format(get_postgres_str(next_extractor), new_meta, get_postgres_str(file_id))
 
-    data_query = """UPDATE files SET last_extractor = {0}, metadata = {1}, done = 't', ex_ls={2}, totaltime={4} WHERE path = {3};"""
-    data_query = data_query.format(get_postgres_str(next_extractor), get_postgres_str(new_meta),
-                                   get_postgres_str(str(ext_list).replace('\'', '"')), get_postgres_str(file_id),
-                                   time_taken)
+    print(data_query)
+
     cur3.execute(data_query)
 
     conn3.commit()
