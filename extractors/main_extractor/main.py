@@ -3,17 +3,13 @@
     and continuously puts the file through relevant extractors. Updates in RDS db as it goes.
 
     Author: Tyler J. Skluzacek
-    Last Edited: 07/05/2018
+    Last Edited: 08/14/2018
 """
 
-import decimal
-import json
+import ast
 import nltk
-import os
 import sys
 import time
-import urllib
-import ast
 
 nltk.download("punkt")
 
@@ -63,7 +59,6 @@ def main(debug = False, debug_file = None):
         print("Processing file of extension: " + extension + " " + filename)
 
         # *** Build extension override *** #
-
         ex_freetext = None
         ex_structured = None
 
@@ -92,59 +87,20 @@ def main(debug = False, debug_file = None):
             # TODO: Add back image extractor.
             print("Image extractor here... ")
 
-
-        print("Extracted Freetext metadata: " + str(ex_freetext))
-
-        # try:
-        #     ex_freetext = get_freetext_metadata(filename, metadata)
-        # except:
-        #     ex_freetext = None
-        #
-        # if ex_freetext != None:
-        #     new_metadata = ex_freetext[0]
-        #     added_time = ex_freetext[1]
-
-            # total_time += decimal.Decimal(str(added_time))  # Total time spent extracting this file.
-            #
-            # try: #TODO: Is this a bad try/except?
-            #     metadata["extractors"]["ex_freetext"] = new_metadata["ex_freetext"]
-            # except:
-            #     pass
-
         metadata = ast.literal_eval(metadata)
-
         metadata["extractors"] = {}
 
-        if ex_structured != None and ex_structured != "None":
+        if ex_structured is not None and ex_structured != "None":
             new_metadata = ex_structured[0]
-            # added_time = ex_structured[1]
-
-            # total_time += decimal.Decimal(str(added_time))  # Total time spent extracting this file.
             metadata["extractors"]["ex_structured"] = new_metadata
 
-        if ex_freetext != None and ex_freetext != "None":
-
-
+        if ex_freetext is not None and ex_freetext != "None":
             new_metadata = ex_freetext[0]
             metadata["extractors"]["ex_freetext"] = new_metadata
 
         print("THE METADATA: " + str(metadata))
 
-        # TODO: TYLER STEP 1... METADATA IS WRITING... NOW ADD TO DB.
-
-
-
-        #print(metadata)
         sqlite_helper.update_db(filename, metadata, 'main1')
-        # print("Database updated. ")
-        #
-        # metadata = json.dumps(metadata)
-        # metadata = json.loads(metadata)
-        #
-        # print(metadata)
-        #
-        # # TODO: Switch to DB update rather than posting to API.
-        # post_to_API(metadata)
 
 
 def get_freetext_metadata(filename, old_mdata):
@@ -184,16 +140,4 @@ def get_structured_metadata(filename, old_mdata):
         return None
 
 
-
-# def test_one_file():
-#
-#     with open('/home/skluzacek/pub8/examples/58GS20090528.exc.csv') as filehandle:
-#
-#         md = extract_columnar_metadata(filehandle)
-#
-#     print(md)
-#
-# test_one_file()
 main()
-
-# get_freetext_metadata('/home/skluzacek/pub8/oceans/VOS_New_Century_2/2015/README.txt', {})
