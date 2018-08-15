@@ -16,7 +16,7 @@ extractors are currently available:
 * Unstructured (free text) 
 
 The following will be added, in descending order (list will be updated accordingly): 
-* Structured
+* Structured (xml, json, netcdf) 
 * Images (regular) 
 * Images (maps) 
 * Decompression
