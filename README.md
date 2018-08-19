@@ -13,10 +13,10 @@ extractors are currently available:
 * Local crawler
 * File sampler 
 * Tabular extractor
+* Unstructured (free text) 
 
 The following will be added, in descending order (list will be updated accordingly): 
-* Structured
-* Unstructured (free text) 
+* Structured (xml, json, netcdf) 
 * Images (regular) 
 * Images (maps) 
 * Decompression
@@ -40,7 +40,7 @@ Before running, you will first need to create a configuration file in the follow
     "add-container" : "None",
     "intercept-types" : "None", 
     "add-db" : "None", 
-    "extraction-path" : "<absolute-path-to-file>"
+    "extraction-path" : "<absolute-path-to-crawlable-directory>"
 }
 ```
 
