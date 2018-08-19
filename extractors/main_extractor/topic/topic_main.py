@@ -21,7 +21,6 @@ def extract_topic(type_arg, target_path, debug=False):
         keywords = doc_vectors.docs_to_keywords([target_path])
 
     elif type_arg == 'file':
-        print("TARGET PATH: " + target_path)
         keywords = doc_vectors.files_to_keywords([target_path])[0]
 
     elif type_arg == 'directory':

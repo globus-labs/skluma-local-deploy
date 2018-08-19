@@ -1,7 +1,9 @@
+
+import json
+import os
+
 from netCDF4 import Dataset
-import json, os
 import numpy as np
-import sys
 
 '''
     This is the code for the NetCDF extractor.  This takes a file deemed a NetCDF file and extracts all metadata from it
@@ -14,12 +16,14 @@ import sys
     @LastEdited: 07/27/2017
 '''
 
+
 class ExtractionFailed(Exception):
     """Basic error to throw when an extractor fails"""
 
 
 class ExtractionPassed(Exception):
     """Indicator to throw when extractor passes for fast file classification"""
+
 
 class NumpyDecoder(json.JSONEncoder):
     """Serializer used to convert numpy types to normal json serializable types.
@@ -35,7 +39,6 @@ class NumpyDecoder(json.JSONEncoder):
             return str(obj)
         else:
             return super(NumpyDecoder, self).default(obj)
-
 
 
 def extract_netcdf_metadata(file_handle, pass_fail=False):
@@ -69,10 +72,10 @@ def extract_netcdf_metadata(file_handle, pass_fail=False):
         }
         add_ncattr_metadata(dataset, dim, "dimensions", metadata)
 
-    vars = dataset.variables
-    if len(vars) > 0:
+    variables = dataset.variables
+    if len(variables) > 0:
         metadata["variables"] = {}
-    for var in vars:
+    for var in variables:
         if var not in dims:
             metadata["variables"][var] = {
                 "dimensions": dataset.variables[var].dimensions,
@@ -82,6 +85,7 @@ def extract_netcdf_metadata(file_handle, pass_fail=False):
 
     # cast all numpy types to native python types via dumps, then back to dict via loads
     return json.loads(json.dumps(metadata, cls=NumpyDecoder))
+
 
 def add_ncattr_metadata(dataset, name, dim_or_var, metadata):
     """Get attributes from a netCDF variable or dimension.
@@ -97,15 +101,6 @@ def add_ncattr_metadata(dataset, name, dim_or_var, metadata):
     # some variables have no attributes
     except KeyError:
         pass
-
-import time
-
-# TODO: Tyler, what the hell?
-
-t0 = time.time()
-with open('/home/skluzacek/Downloads/pub8/oceans/CLIVAR/ARC01_33HQ20150809/33HQ20150809_00063_00001_ctd.nc', 'rb') as f:
-    extract_netcdf_metadata(f)
-t1 = time.time()
-
-print(t1-t0)
-
+#
+# with open('/home/skluzacek/pub8/oceans/CLIVAR/ARC01_33HQ20150809/33HQ20150809_00057_00002_ctd.nc', 'r') as f:
+#     print(extract_netcdf_metadata(f))

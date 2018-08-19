@@ -15,12 +15,14 @@ nltk.download("punkt")
 
 sys.path.insert(0,'/src/topic')
 sys.path.insert(0,'/src/columns')
+sys.path.insert(0,'/src/structured')
 
 
 from topic_main import extract_topic
+from ex_nc import extract_netcdf_metadata
 from ex_columns import process_structured_file  # Ignore pycharm red squiggle.
-from file_type_extensions import freetext_type_list, image_type_list, tabular_type_list
-import sqlite_helper  # TODO: Add this.
+from file_type_extensions import freetext_type_list, image_type_list, tabular_type_list, structured_type_list
+import sqlite_helper
 
 
 class RedundantMetadata(Exception):
@@ -34,21 +36,10 @@ def main(debug = False, debug_file = None):
 
     # Just do one file.
     while True:
-        #try:
-            # Step 1. Pick a new file from the DB.
-            #while True:
-
-        #try:
         file_info = sqlite_helper.get_next_file()[0]  # Insert matplotlib that queries database.
         filename = file_info[0]
         metadata = file_info[1]
         last_extractor = file_info[2]
-
-        # except Exception as e:
-        #     print(e)
-        #     print("Empty queue. Seeking again momentarily")
-        #     time.sleep(5)  # Take a short, arbitrary nap :)
-            # break # TODO: Add back break so we restart loop from beginning.
 
         # Get the extension from the file.
         if '.' in filename:
@@ -56,17 +47,16 @@ def main(debug = False, debug_file = None):
         else:
             extension = None
 
-        print("Processing file of extension: " + extension + " " + filename)
-
         # *** Build extension override *** #
         ex_freetext = None
+        ex_tabular = None
         ex_structured = None
 
         if extension.lower() in tabular_type_list:
             try:
-                ex_structured = get_structured_metadata(filename, metadata)
+                ex_tabular = get_tabular_metadata(filename, metadata)
             except:
-                ex_structured = None
+                ex_tabular = None
 
                 try:
                     ex_freetext = get_freetext_metadata(filename, metadata)
@@ -79,26 +69,39 @@ def main(debug = False, debug_file = None):
             except:
                 ex_freetext = None
                 try:
-                    ex_structured = get_structured_metadata(filename, metadata)
+                    ex_tabular = get_tabular_metadata(filename, metadata)
                 except:
-                    ex_structured = None
+                    ex_tabular = None
 
         elif extension.lower() in image_type_list:
             # TODO: Add back image extractor.
             print("Image extractor here... ")
 
+        elif extension.lower() == "nc":
+            try:
+                ex_structured = get_netcdf_metadata(filename, metadata)
+            except:
+                # print("NETCDF Failed, you fuck. ")
+                ex_structured = None
+            # try:
+            #     ex_freetext = get_freetext_metadata(filename, metadata)
+            # except:
+            #     ex_freetext = None
+
         metadata = ast.literal_eval(metadata)
         metadata["extractors"] = {}
 
-        if ex_structured is not None and ex_structured != "None":
-            new_metadata = ex_structured[0]
-            metadata["extractors"]["ex_structured"] = new_metadata
+        if ex_tabular is not None and ex_tabular != "None":
+            new_metadata = ex_tabular[0]
+            metadata["extractors"]["ex_tabular"] = new_metadata
 
         if ex_freetext is not None and ex_freetext != "None":
             new_metadata = ex_freetext[0]
             metadata["extractors"]["ex_freetext"] = new_metadata
 
-        print("THE METADATA: " + str(metadata))
+        if ex_structured is not None and ex_structured != "None":
+            new_metadata = ex_structured[0]
+            metadata["extractors"]["ex_structured"] = new_metadata
 
         sqlite_helper.update_db(filename, metadata, 'main1')
 
@@ -106,7 +109,6 @@ def main(debug = False, debug_file = None):
 def get_freetext_metadata(filename, old_mdata):
 
     t0 = time.time()
-    print("DOING WORK")
     metadata = extract_topic('file', filename)
     t1 = time.time()
 
@@ -118,25 +120,38 @@ def get_freetext_metadata(filename, old_mdata):
         return (metadata, t1-t0)
 
 
-def get_structured_metadata(filename, old_mdata):
+def get_tabular_metadata(filename, old_mdata):
 
-    try:  # TODO: Are we updating ex_ls?
+    try:
 
-        print(filename)
-
-        t0 = time.time()
         metadata = process_structured_file(filename)
-        t1 = time.time()
 
-        if 'ex_structured' in old_mdata:
+        if 'ex_tabular' in old_mdata:
             print("There's already structured metadata for this file. ")
             return None  # Return nothing because no point.
 
         else:
-            return (metadata, t1-t0)
+            return (metadata, 0)
 
     except:  # If the metadata extraction utterly fails.
         print("Structured Extraction Failed. Terminating now. ")
+        return None
+
+def get_netcdf_metadata(filename, old_mdata):
+    try:
+
+        with open(filename, 'rw') as f:
+            metadata = extract_netcdf_metadata(f)
+
+        if 'ex_netcdf' in old_mdata:
+            print("Already NetCDF metadata for this file.")
+            return None
+
+        else:
+            return(metadata, 0)
+
+    except:
+        print("NetCDF extraction Failed. Terminating now . ")
         return None
 
 

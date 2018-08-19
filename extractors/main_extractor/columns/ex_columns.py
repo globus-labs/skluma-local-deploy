@@ -435,7 +435,6 @@ def process_structured_file(full_file_path):
         sub_extr_data, sub_extr = None, None  #TODO: Put back hybrid.
 
     metadata = max([str(metadata1), str(metadata2)], key=len)
-    print(metadata)
 
     return (metadata, sub_extr_data, sub_extr)
 

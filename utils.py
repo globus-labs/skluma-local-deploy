@@ -6,7 +6,7 @@ c = conn.cursor()
 
 
 def count_rows():
-    for row in c.execute("SELECT * FROM files WHERE last_extractor = 'main1';"):
+    for row in c.execute("SELECT path, metadata FROM files;"): #WHERE last_extractor = 'main1';"):
         print(row)
 
 
