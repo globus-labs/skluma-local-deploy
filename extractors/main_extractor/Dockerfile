@@ -9,7 +9,8 @@ RUN \
   pip install scipy \
   && pip install sklearn \
   && pip install gensim \
-  && pip install nltk
+  && pip install nltk \
+  && pip install xmltodict
 
 RUN \
   pip install netCDF4
