@@ -1,0 +1,35 @@
+Description
+This is a image classifier based on ResNet18 architecture and being trained on data from Viziometrics.
+
+There are several files and folders.
+
+run.sh: run this shell script will first build a image, then run an instance of the image so that to predict the type of images in folder "images".
+
+class_label_pair.json: store the number class to human readable class dictionary
+
+files_to_container: including several files that are copied into image.
+	Dockerfile: file that instructs how to build the the image
+	requirements.txt: dependencies of the program
+	run_inside_container.sh: what to execute inside docker container
+
+src: including source files of this program
+	main.py: the main file of this program
+	model.py: load the model and use it to predict
+	data.ppy: preprocessing of data
+
+model: store the model
+
+images: store some test images, also the images to be classified.
+
+prediction: store the prediction result. result will be stored in file "prediction.json" which includes a file path to number type dictionary.
+
+
+Running process
+0. Make sure your memory of container is large enough (I use 4G and it works)
+1. Build the image with files in folder files_to_container (done by run.sh)
+2. run a container and mount images, model, src, prediction to it, then run the script run_inside_container.sh for prediction (done by run.sh)
+
+
+tips
+1. Only need to build image once, after that only run the third line in run.sh could work.
+2. Larger batch_size (in main) may lead to faster prediction, but consume more memory
