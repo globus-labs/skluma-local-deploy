@@ -1,6 +1,12 @@
 
 import json
 import xmltodict
+import statistics as s
+
+
+# Set a depth limit so we don't spend all of our time scouring through an
+# infinitely deep file.
+depth_limiter = 5
 
 
 def xml_to_json(xml_file):
@@ -22,18 +28,31 @@ def json_tree_data(d, headers, columns):
             headers.append(k)
             json_tree_data(v, headers, columns)
         else:
-            print(k)
             headers.append(k)
-            columns.append({k: type(v)})
+            columns[k] = [type(v)]
+
+            if type(v) == list:
+                # Step 1: Get the first value.
+                presumed_type = type(v[0])
+                uniform = all(isinstance(n, type(v[0])) for n in v)
+
+                if presumed_type in [long, int, float]:
+                    meanval = s.mean(v)
+                    modeval = s.mode(v)
+
+                    columns[k].append({"mean": meanval, "mode": modeval})
+
+            else:
+                print("ADD BACK THE FREETEXT SEARCH FOR STRINGS.")
 
     return headers, columns
 
 
 def get_json_metadata(filename):
 
-    freetext_collection = []
+    freetext_collection = []  # TODO.
     headers = []
-    columns = []
+    columns = {}
 
     # Load the data as the json type.
     if filename.endswith(".xml"):
@@ -50,19 +69,5 @@ def get_json_metadata(filename):
     headers = json_tree[0]
     columns = json_tree[1]
 
-    for col in columns:
-        # TODO: Put this into the json_tree stuff.
-        # TODO: Check to see if can be cast as numeric.
-        # TODO: Get mean, median, and 3-mode.
-        print("This is a column. ")
-
-    print(depth)
-    print(headers)
-    print(columns)
-    # print(columns)
-    # print(json_data)
-
-get_json_metadata("/home/skluzacek/Desktop/sample.xml")
-get_json_metadata("/home/skluzacek/skluma_cfg.json")
-
-
+    metadata = {"maxdepth": depth, "headers": headers, "columns": columns}
+    return metadata

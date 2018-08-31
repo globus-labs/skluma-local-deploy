@@ -20,6 +20,7 @@ sys.path.insert(0,'/src/structured')
 
 from topic_main import extract_topic
 from ex_nc import extract_netcdf_metadata
+from ex_json import get_json_metadata
 from ex_columns import process_structured_file  # Ignore pycharm red squiggle.
 from file_type_extensions import freetext_type_list, image_type_list, tabular_type_list, structured_type_list
 import sqlite_helper
@@ -81,12 +82,14 @@ def main(debug = False, debug_file = None):
             try:
                 ex_structured = get_netcdf_metadata(filename, metadata)
             except:
-                # print("NETCDF Failed, you fuck. ")
                 ex_structured = None
-            # try:
-            #     ex_freetext = get_freetext_metadata(filename, metadata)
-            # except:
-            #     ex_freetext = None
+
+        elif extension.lower() in ["xml", "json"]:
+            try:
+                ex_structured = get_json_metadata(filename)
+            except:
+                ex_structured = None
+
 
         metadata = ast.literal_eval(metadata)
         metadata["extractors"] = {}
@@ -113,7 +116,7 @@ def get_freetext_metadata(filename, old_mdata):
     t1 = time.time()
 
     if 'ex_freetext' in old_mdata:
-        print("There's already structured metadata for this file. ")
+        print("There's already freetext metadata for this file. ")
         return None  # Return nothing because no point.
 
     else:
@@ -127,14 +130,14 @@ def get_tabular_metadata(filename, old_mdata):
         metadata = process_structured_file(filename)
 
         if 'ex_tabular' in old_mdata:
-            print("There's already structured metadata for this file. ")
+            print("There's already tabular metadata for this file. ")
             return None  # Return nothing because no point.
 
         else:
             return (metadata, 0)
 
     except:  # If the metadata extraction utterly fails.
-        print("Structured Extraction Failed. Terminating now. ")
+        print("Tabular Extraction Failed. Terminating now. ")
         return None
 
 def get_netcdf_metadata(filename, old_mdata):
