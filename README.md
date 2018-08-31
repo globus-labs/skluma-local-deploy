@@ -14,14 +14,14 @@ extractors are currently available:
 * File sampler 
 * Tabular extractor
 * Unstructured (free text) 
+* Structured (xml, json, netcdf) 
 
 The following will be added, in descending order (list will be updated accordingly): 
-* Structured (xml, json, netcdf) 
 * Images (regular) 
 * Images (maps) 
 * Decompression
 * VCF/DICOM (genetics datasets)
-* Globus Search 
+* Globus Search
 
 
 ## Get Started
