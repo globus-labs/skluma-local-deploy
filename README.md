@@ -20,7 +20,13 @@ The following will be added, in descending order (list will be updated according
 * Images (regular) 
 * Images (maps) 
 * Decompression
+* PDF
+* Null value inference (tabular, structured datasets)
+* Directory-closeness weighting. 
+* Shapefile
+* Multi-threaded tabular extractor version
 * VCF/DICOM (genetics datasets)
+* Python/Java/C/C++/JS/HTML/CSS/Perl/PHP/Swift tagging
 * Globus Search
 
 
