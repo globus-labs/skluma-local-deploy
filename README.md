@@ -46,7 +46,8 @@ Before running, you will first need to create a configuration file in the follow
     "add-container" : "None",
     "intercept-types" : "None", 
     "add-db" : "None", 
-    "extraction-path" : "<absolute-path-to-crawlable-directory>"
+    "extraction-path" : "<absolute-path-to-crawlable-directory>", 
+    "n-cores" : 1
 }
 ```
 
