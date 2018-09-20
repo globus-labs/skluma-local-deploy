@@ -78,11 +78,10 @@ def docs_to_keywords(docs, top_n=10, mode='ntf-imp', scores=True):
         raise ValueError('mode must be one of' + ', '.join(vectorizers.keys()))
         return None
 
-
-    print("MADE IT HERE FRIEND")
     model = vectorizer()    # notice no word vectors passed in
     model = model.fit(docs)
     keywords = model.keywords(docs, top_n=top_n, scores=scores)
+    # TODO: Choose percentage sample based on file size. Huge txt files of nonsense will take FOREVER.
     print("KEYWORDS:" + str(keywords))
     return keywords
 
@@ -106,6 +105,3 @@ def directory_to_keywords(directory, top_n=10, mode='ntf-imp', scores=True):
         for file in filenames:
             files.append(os.path.join(path, file))
     return files_to_keywords(files, top_n=top_n, mode=mode, scores=scores)
-
-
-

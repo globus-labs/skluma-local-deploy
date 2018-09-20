@@ -13,7 +13,8 @@ RUN \
   && pip install xmltodict
 
 RUN \
-  pip install netCDF4
+  pip install netCDF4 \
+  && pip install statistics
 
 # Add emergency Docker-volume.
 # NOTE: only used in case we can't get r/w permissions on host OS.

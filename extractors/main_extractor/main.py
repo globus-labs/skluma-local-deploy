@@ -34,10 +34,10 @@ class UnreadableStructuredMetadata(Exception):
 
 def main(debug = False, debug_file = None):
 
-
     # Just do one file.
     while True:
         file_info = sqlite_helper.get_next_file()[0]  # Insert matplotlib that queries database.
+        print(file_info)
         filename = file_info[0]
         metadata = file_info[1]
         last_extractor = file_info[2]
@@ -89,7 +89,6 @@ def main(debug = False, debug_file = None):
                 ex_structured = get_json_metadata(filename)
             except:
                 ex_structured = None
-
 
         metadata = ast.literal_eval(metadata)
         metadata["extractors"] = {}
@@ -156,6 +155,5 @@ def get_netcdf_metadata(filename, old_mdata):
     except:
         print("NetCDF extraction Failed. Terminating now . ")
         return None
-
 
 main()

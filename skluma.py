@@ -26,7 +26,7 @@ with open(args.config_path, 'r') as f:
 
 username = config_dict["username"]
 crawlable_path = config_dict["extraction-path"]
-
+core_count = config_dict["n-cores"]
 
 def initialize():
 
@@ -48,30 +48,32 @@ def initialize():
         except sqlite3.Error as e:
             print(e)
 
-# TODO: Uncomment this for initialization.
 initialize()
+
+# Here we build all eligible containers.
+print("Building Skluma extractor containers...")
+call(["sudo", "docker", "build", "-t", "posix_crawler", "extractors/crawler"])
+call(["sudo", "docker", "build", "-t" , "file_sampler", "extractors/file_sampler"])
+call(["sudo", "docker", "build", "-t", "main_extractor", "extractors/main_extractor"])
 
 # Step 3. Spin up and launch crawler.
 # TODO: Switch back to pyLogger and not 'print'.
 # --- Note: We use the crawlable directory as a mounted Docker volume.
-print("Launching file system crawler at path " + crawlable_path + ".")
-call(["sudo", "docker", "build", "-t", "posix_crawler", "extractors/crawler"])
+print("Launching file system crawler at path " + crawlable_path + "...")
 docker_crawl_path = "CRAWL_PATH=" + crawlable_path
-print(docker_crawl_path)
-call(["sudo", "docker", "run", "--rm","-e", docker_crawl_path ,  "-e", "DB_PATH=" + tmp_path + "skluma-db3.db", "-P", "-t", "-v", crawlable_path + "/:" + crawlable_path, "-v", tmp_path + ":" + tmp_path, "posix_crawler"])
+call(["sudo", "docker", "run", "--rm", "-e", docker_crawl_path,  "-e", "DB_PATH=" + tmp_path + "skluma-db3.db", "-P", "-t", "-v", crawlable_path + "/:" + crawlable_path, "-v", tmp_path + ":" + tmp_path, "posix_crawler"])
 
 # Step 4. Spin up and launch file sampler.
-print("Background launching file system crawler at path " + crawlable_path + ".")
-call(["sudo", "docker", "build", "-t" , "file_sampler", "extractors/file_sampler"])
+print("Background launching file sampler at path " + crawlable_path + "...")
 call(["sudo", "docker", "run", "--rm", "-e", "DB_PATH=" + tmp_path + "skluma-db3.db", "-P", "-t", "-v", crawlable_path + "/:" + crawlable_path, "-v", tmp_path + ":" + tmp_path, "file_sampler"])
 
-call(["sudo", "docker", "build", "-t", "main_extractor", "extractors/main_extractor"])
-call(["sudo", "docker", "run", "--rm", "-e", "DB_PATH=" + tmp_path + "skluma-db3.db", "-P", "-t", "-v", crawlable_path + "/:" + crawlable_path, "-v", tmp_path + ":" + tmp_path, "main_extractor"])
-
-
 # Step 5. Launch #-cores-1 universal samplers.
-total_cores = multiprocessing.cpu_count()
-print(total_cores)
+max_cores = multiprocessing.cpu_count()
+
+print("Moving onto main metadata extraction phase...")
+for core in range(0,core_count):  # TODO: Allow 'max' setting here.
+    print("Launching main extractor process...")
+    call(["sudo", "docker", "run", "--rm", "-e", "DB_PATH=" + tmp_path + "skluma-db3.db", "-P", "-t", "-v", crawlable_path + "/:" + crawlable_path, "-v", tmp_path + ":" + tmp_path, "main_extractor"])
 
 # TODO: Move compressed files to /tmp, decompress them, process, then delete.
 # Step 5a. When crawler spins down, launch another main.

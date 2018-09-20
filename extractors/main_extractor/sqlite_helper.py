@@ -4,12 +4,16 @@ import sqlite3
 
 DB_PATH = os.environ["DB_PATH"]
 
+
 def get_next_file():
 
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
     query = """SELECT path, metadata, last_extractor FROM files WHERE last_extractor <> 'init' AND last_extractor <> 'main1' LIMIT 1; """
+
+    # TODO: select a random file to avoid collisions.
+    # TODO: lock the file so others can access.
 
     cur.execute(query)
     conn.commit()
