@@ -53,59 +53,59 @@ def main(debug = False, debug_file = None):
         ex_tabular = None
         ex_structured = None
 
-        if extension.lower() in tabular_type_list:
-            try:
-                ex_tabular = get_tabular_metadata(filename, metadata)
-            except:
-                ex_tabular = None
-
-                try:
-                    ex_freetext = get_freetext_metadata(filename, metadata)
-                except:
-                    ex_freetext = None
-
-        elif extension.lower() in freetext_type_list:
-            try:
-                ex_freetext = get_freetext_metadata(filename, metadata)
-            except:
-                ex_freetext = None
-                try:
-                    ex_tabular = get_tabular_metadata(filename, metadata)
-                except:
-                    ex_tabular = None
-
-        elif extension.lower() in image_type_list:
-            # TODO: Add back image extractor.
-            print("Image extractor here... ")
-
-        elif extension.lower() == "nc":
-            try:
-                ex_structured = get_netcdf_metadata(filename, metadata)
-            except:
-                ex_structured = None
-
-        elif extension.lower() in ["xml", "json"]:
-            try:
-                ex_structured = get_json_metadata(filename)
-            except:
-                ex_structured = None
-
-        metadata = ast.literal_eval(metadata)
-        metadata["extractors"] = {}
-
-        if ex_tabular is not None and ex_tabular != "None":
-            new_metadata = ex_tabular[0]
-            metadata["extractors"]["ex_tabular"] = new_metadata
-
-        if ex_freetext is not None and ex_freetext != "None":
-            new_metadata = ex_freetext[0]
-            metadata["extractors"]["ex_freetext"] = new_metadata
-
-        if ex_structured is not None and ex_structured != "None":
-            new_metadata = ex_structured[0]
-            metadata["extractors"]["ex_structured"] = new_metadata
-
-        sqlite_helper.update_db(filename, metadata, 'main1')
+        # if extension.lower() in tabular_type_list:
+        #     try:
+        #         ex_tabular = get_tabular_metadata(filename, metadata)
+        #     except:
+        #         ex_tabular = None
+        #
+        #         try:
+        #             ex_freetext = get_freetext_metadata(filename, metadata)
+        #         except:
+        #             ex_freetext = None
+        #
+        # elif extension.lower() in freetext_type_list:
+        #     try:
+        #         ex_freetext = get_freetext_metadata(filename, metadata)
+        #     except:
+        #         ex_freetext = None
+        #         try:
+        #             ex_tabular = get_tabular_metadata(filename, metadata)
+        #         except:
+        #             ex_tabular = None
+        #
+        # elif extension.lower() in image_type_list:
+        #     # TODO: Add back image extractor.
+        #     print("Image extractor here... ")
+        #
+        # elif extension.lower() == "nc":
+        #     try:
+        #         ex_structured = get_netcdf_metadata(filename, metadata)
+        #     except:
+        #         ex_structured = None
+        #
+        # elif extension.lower() in ["xml", "json"]:
+        #     try:
+        #         ex_structured = get_json_metadata(filename)
+        #     except:
+        #         ex_structured = None
+        #
+        # metadata = ast.literal_eval(metadata)
+        # metadata["extractors"] = {}
+        #
+        # if ex_tabular is not None and ex_tabular != "None":
+        #     new_metadata = ex_tabular[0]
+        #     metadata["extractors"]["ex_tabular"] = new_metadata
+        #
+        # if ex_freetext is not None and ex_freetext != "None":
+        #     new_metadata = ex_freetext[0]
+        #     metadata["extractors"]["ex_freetext"] = new_metadata
+        #
+        # if ex_structured is not None and ex_structured != "None":
+        #     new_metadata = ex_structured[0]
+        #     metadata["extractors"]["ex_structured"] = new_metadata
+        #
+        # sqlite_helper.update_db(filename, metadata, 'main1')
 
 
 def get_freetext_metadata(filename, old_mdata):
