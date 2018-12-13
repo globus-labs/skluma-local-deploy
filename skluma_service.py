@@ -9,7 +9,7 @@ sys.path.insert(0, os.getcwd() + '/extractors/universal')  # lets us call sub-pa
 
 import universal
 
-FILE_STAGING_LOCATION = "/home/skluzacek/Downloads/"
+FILE_STAGING_LOCATION = "/home/tskluzac/Downloads/"
 
 app = Flask(__name__)
 
