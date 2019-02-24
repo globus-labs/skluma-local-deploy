@@ -2,14 +2,12 @@ import os
 import numpy as np
 import nltk
 
-from preprocessing import preprocess
-from word_vectors import load_glove_model
-from vectorizers import ImportanceEmbeddingVectorizer, NTFImportanceEmbeddingVectorizer
+from .preprocessing import preprocess
+from .word_vectors import load_glove_model
+from .vectorizers import ImportanceEmbeddingVectorizer, NTFImportanceEmbeddingVectorizer
 
 # NOTE: Currently, docs_to_vectors and docs_to_keywords are separate functions
 # I need to tidy this up and wrap them into one which avoids repeated work
-
-### Tyler-note: needs to run nltk.download("punkt") once before running!
 
 vectorizers = {
     'ntf-imp': NTFImportanceEmbeddingVectorizer,
@@ -82,7 +80,7 @@ def docs_to_keywords(docs, top_n=10, mode='ntf-imp', scores=True):
     model = model.fit(docs)
     keywords = model.keywords(docs, top_n=top_n, scores=scores)
     # TODO: Choose percentage sample based on file size. Huge txt files of nonsense will take FOREVER.
-    print("KEYWORDS:" + str(keywords))
+    # print("KEYWORDS:" + str(keywords))
     return keywords
 
 

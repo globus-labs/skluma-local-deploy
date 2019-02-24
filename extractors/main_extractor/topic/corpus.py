@@ -2,7 +2,7 @@ import pickle
 import math
 from collections import Counter
 
-from preprocessing import preprocess
+from .preprocessing import preprocess
 
 
 class Corpus:

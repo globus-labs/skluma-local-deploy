@@ -1,5 +1,7 @@
 import pandas as pd
 from .struct_utils import is_header_row, fields
+from ..topic.topic_main import extract_topic
+
 import csv
 import math
 from heapq import nlargest
@@ -9,9 +11,6 @@ MIN_ROWS = 5
 """
  TODO LIST: 
  1. Be able to isolate preamble and header (if exists) in a file. Hold preamble as free text string. 
- 2. Should be able to make up header values for columns if they don't already exist. 
- 3. Get meaningful numeric metadata
- 4. Get meaningful nonnumeric metadata (most commonly used field values). 
  5. Data sampling. 
  6. Handle 2-line headers. ('/home/skluzacek/pub8/oceans/VOS_Natalie_Schulte_Lines/NS2010_09.csv')
 """
@@ -45,8 +44,19 @@ def extract_columnar_metadata(filename):
         header_info = get_header_info(data2, delim=delimiter)  # TODO: use max-fields of ',', ' ', or '\t'???
         freetext_offset = header_info[0]
 
+        # Seek back to start of file.
+        data2.seek(0)
+
+        preamble_metadata = None
         if freetext_offset is None:
             freetext_offset = 0
+
+        # Otherwise, get the preamble and its associated metadata!
+
+        if freetext_offset > 1:
+            preamble = [next(data2) for _ in range(freetext_offset)]
+            preamble_metadata = extract_topic("subtext", str(preamble))
+
 
         header_col_labels = header_info[1]
 
@@ -139,6 +149,7 @@ def extract_columnar_metadata(filename):
         nonnumeric_metadata[col_key] = {"sampled_top3_modes": three_largest}
 
     grand_mdata["nonnumeric"] = nonnumeric_metadata
+    grand_mdata["freetext_keywords"] = preamble_metadata
 
     return grand_mdata
 

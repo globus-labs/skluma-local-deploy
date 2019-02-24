@@ -1,7 +1,7 @@
 import numpy as np
 
-from corpus import Corpus
-from preprocessing import preprocess
+from .corpus import Corpus
+from .preprocessing import preprocess
 
 
 class MeanEmbeddingVectorizer(object):
