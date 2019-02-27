@@ -39,6 +39,8 @@ if mode_flag == 'predict':
     prediction = model.predict(model_ft, batched_image_list)
 
     end_time = time.time()
+
+    print("Prediction: " + str(prediction))
     print('finish prediction')
     print('time used to predict: ' + str(end_time - start_time))
 

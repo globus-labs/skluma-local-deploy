@@ -36,7 +36,7 @@ def json_tree_data(d, headers, columns):
                 presumed_type = type(v[0])
                 uniform = all(isinstance(n, type(v[0])) for n in v)
 
-                if presumed_type in [long, int, float]:
+                if presumed_type in [int, float]:
                     meanval = s.mean(v)
                     modeval = s.mode(v)
 
@@ -50,7 +50,7 @@ def json_tree_data(d, headers, columns):
 
 def get_json_metadata(filename):
 
-    freetext_collection = []  # TODO.
+    freetext_collection = []
     headers = []
     columns = {}
 

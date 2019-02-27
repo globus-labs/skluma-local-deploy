@@ -2,6 +2,9 @@ import pandas as pd
 from .struct_utils import is_header_row, fields
 from ..topic.topic_main import extract_topic
 
+from ..structured.ex_json import get_json_metadata
+from ..structured.ex_nc import extract_netcdf_metadata
+
 import csv
 import math
 from heapq import nlargest
@@ -10,9 +13,8 @@ MIN_ROWS = 5
 
 """
  TODO LIST: 
- 1. Be able to isolate preamble and header (if exists) in a file. Hold preamble as free text string. 
- 5. Data sampling. 
- 6. Handle 2-line headers. ('/home/skluzacek/pub8/oceans/VOS_Natalie_Schulte_Lines/NS2010_09.csv')
+ 5. Data sampling.
+ 6. Handle 2-line headers. ('/home/skluzacek/pub8/oceans/VOS_Natalie_Schulte_Lines/NS2010_09.csv').
 """
 
 
@@ -29,6 +31,18 @@ def extract_columnar_metadata(filename):
             :param nulls: (list(int)) list of null indices
             :returns: (dict) ascertained metadata
             :raises: (ExtractionFailed) if the file cannot be read as a columnar file"""
+
+    # Need to have hard-coded catchings for following specialized formats:
+    if filename.endswith(".nc"):
+
+        with open(filename, 'rU') as g:
+            metadata = extract_netcdf_metadata(g)
+        return metadata
+    elif filename.endswith(".xml") or filename.endswith(".json"):
+        metadata = get_json_metadata(filename)
+        return metadata
+
+
 
     with open(filename, 'rU') as data2:
         # Step 1. Quick scan for number of lines in file.
@@ -52,7 +66,6 @@ def extract_columnar_metadata(filename):
             freetext_offset = 0
 
         # Otherwise, get the preamble and its associated metadata!
-
         if freetext_offset > 1:
             preamble = [next(data2) for _ in range(freetext_offset)]
             preamble_metadata = extract_topic("subtext", str(preamble))
@@ -73,7 +86,7 @@ def extract_columnar_metadata(filename):
         metadata = extract_dataframe_metadata(df, header_col_labels)
         df_metadata.append(metadata)
 
-    grand_mdata = {"physical": {"linecount": line_count}, "numeric": {}, "nonnumeric": {}}
+    grand_mdata = {"physical": {"linecount": line_count, "headers": header_col_labels, "delimiter": delimiter, "preamble_length": freetext_offset}, "numeric": {}, "nonnumeric": {}}
 
     g_means = {}
     g_three_max = {}
