@@ -67,11 +67,11 @@ def get_best_params(model, params, X, y):
 
 
 def print_performance(all_y_test, all_y_pred, avg_method='macro'):
-    print "accuracy: {}\nprecision: {}\nrecall: {}".format(
+    print("accuracy: {}\nprecision: {}\nrecall: {}".format(
         accuracy_score(all_y_test, all_y_pred),
         precision_score(all_y_test, all_y_pred, average=avg_method),
         recall_score(all_y_test, all_y_pred, average=avg_method)
-    )
+    ))
 
 
 def cross_validation(model, X, y, splits=1000, certainty_threshold=None):
@@ -108,18 +108,18 @@ def cross_validation(model, X, y, splits=1000, certainty_threshold=None):
     print_performance(all_y_test, all_y_pred, avg_method='macro')
 
     if certainty_threshold is not None:
-        print "---------------------------------------"
-        print "Within certainty threshold of {}".format(certainty_threshold)
-        print "---------------------------------------"
+        print("---------------------------------------")
+        print("Within certainty threshold of {}".format(certainty_threshold))
+        print("---------------------------------------")
 
-        print "certainty min: {}, max: {}".format(min(all_y_decision)[0], max(all_y_decision)[0])
+        print("certainty min: {}, max: {}".format(min(all_y_decision)[0], max(all_y_decision)[0]))
         outside_threshold = [i for i in range(0, all_y_decision.shape[0])
                              if all_y_decision[i][0] < certainty_threshold]
         # print outside_threshold
         all_y_test = np.delete(all_y_test, outside_threshold)
         all_y_pred = np.delete(all_y_pred, outside_threshold)
-        print "number of samples within threshold: {} out of {}".format(all_y_pred.shape[0],
-                                                                        all_y_pred.shape[0] + len(outside_threshold))
+        print("number of samples within threshold: {} out of {}".format(all_y_pred.shape[0],
+                                                                        all_y_pred.shape[0] + len(outside_threshold)))
 
         if all_y_pred.shape[0] > 0:
             print_performance(all_y_test, all_y_pred, avg_method='macro')
